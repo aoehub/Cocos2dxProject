@@ -44,7 +44,7 @@
 - (void)loadView {
     // Initialize the CCEAGLView
     CCEAGLView *eaglView = [CCEAGLView viewWithFrame: [UIScreen mainScreen].bounds
-                                         pixelFormat: (__bridge NSString *)cocos2d::GLViewImpl::_pixelFormat
+                                          pixelFormat: (__bridge NSString *)cocos2d::GLViewImpl::_pixelFormat
                                          depthFormat: cocos2d::GLViewImpl::_depthFormat
                                   preserveBackbuffer: NO
                                           sharegroup: nil

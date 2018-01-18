@@ -2,7 +2,7 @@
 local MainScene = class("MainScene", cc.load("mvc").ViewBase)
 
 function MainScene:onCreate()
-    -- add background image
+    add background image
     display.newSprite("HelloWorld.png")
         :move(display.center)
         :addTo(self)
