@@ -11,6 +11,9 @@ CC_SHOW_FPS = true
 -- disable create unexpected global variable
 CC_DISABLE_GLOBAL = false
 
+CC_SCREEN_RATIO = 1.0
+
+
 -- for module display
 CC_DESIGN_RESOLUTION = {
     width = 640,
@@ -24,3 +27,6 @@ CC_DESIGN_RESOLUTION = {
         end
     end
 }
+
+
+require("tool.tool")

@@ -12,11 +12,13 @@ function LoginScene:ctor(  )
 end
 
 function LoginScene:init()
-	local layer = cc.Layer:create()
-	self:addChild(layer)
+	-- local layer = cc.Layer:create()
+	local colorlayer = cc.LayerColor:create(cc.c4b(239.0, 239.0, 244.0, 255),display.width,display.height)
+	-- self:addChild(layer)
+	self:addChild(colorlayer)
 	local sprite = cc.Sprite:create("HelloWorld.png")
 	sprite:setPosition(cc.p(100,100))
-	layer:addChild(sprite)
+	colorlayer:addChild(sprite)
 	self:createTableView(self)
 
 end

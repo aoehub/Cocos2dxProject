@@ -14,13 +14,14 @@ function TabBarController:ctor(scene)
 	self.tabbarItem = {}
 	self.indexs = 4
 	self.tabItemIcons = {}
-	self.tabItemTexts = {"1","2","3","4"}
+	self.tabItemTexts = {"微信","通讯录","发现","我"}
+	self.height = 0
 	self:init()
 end
 
 
 function TabBarController:init()
-
+	self.height = 49*CC_SCREEN_RATIO
 	self.baselayer = require("tool.tabbar.TabBarLayer").new(self)
 	self.basescene:addChild(self.baselayer,666,101)
 
@@ -37,7 +38,7 @@ end
 
 function TabBarController:reload()
 	print(self.selectedIndex)
-	self.views:switchTo(self.selectedIndex - 1)
+	self.views:switchTo(self.selectedIndex - 1,false)
 	self.currentIndex = self.selectedIndex
 end
 

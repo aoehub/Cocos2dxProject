@@ -102,7 +102,7 @@
 
 //fix not hide status on ios7
 - (BOOL)prefersStatusBarHidden {
-    return YES;
+    return false;
 }
 
 - (void)didReceiveMemoryWarning {
