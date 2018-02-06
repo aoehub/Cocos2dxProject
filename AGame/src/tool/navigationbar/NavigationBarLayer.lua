@@ -17,7 +17,7 @@ function NavBarLayer:initUI()
 	local height = self.control.height
 	local title = cc.Label:createWithSystemFont(self.control.title,"黑体",30)
 	title:setPosition(cc.p(display.width/2,(height-22*CC_SCREEN_RATIO)/2))
-	local bg = cc.LayerColor:create(cc.c4b(54, 54, 54, 255),display.width,height)
+	local bg = cc.LayerColor:create(COLOR_NAVIBARCOLOR,display.width,height)
 	bg:setPosition(cc.p(0,display.height - height))
 	print(display.height)
 	self:addChild(bg)

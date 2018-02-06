@@ -8,7 +8,7 @@ tool = {}
 -- 传入DrawNode对象，画圆角矩形
 function tool.drawNodeRoundRect(drawNode, rect, borderWidth, radius, color, fillColor)
   -- segments表示圆角的精细度，值越大越精细
-  local segments    = 100
+  local segments    = 20
   local origin      = cc.p(rect.x, rect.y)
   local destination = cc.p(rect.x + rect.width, rect.y - rect.height)
   local points      = {}
@@ -83,5 +83,64 @@ function tool.drawNodeRoundRect(drawNode, rect, borderWidth, radius, color, fill
 
   drawNode:drawPolygon(pPolygonPtArr, #pPolygonPtArr, fillColor, borderWidth, color)
 end
+
+function tool.maskedSprite(spritePath, size, radius)
+    local textureSprite = cc.Sprite:create(spritePath)
+    local textureSize = textureSprite:getContentSize()
+    local scale = nil
+    if textureSize.width > textureSize.height then
+      scale = size.height/textureSize.height
+    else
+      scale = size.width/textureSize.width
+    end
+    textureSprite:setScale(scale)
+
+    local maskSprite = cc.DrawNode:create()
+    tool.drawNodeRoundRect(maskSprite, cc.rect(-textureSize.width/2*scale, textureSize.height/2*scale, textureSize.width*scale, textureSize.height*scale), 0.001, radius, cc.c4f(1, 1, 1, 1), cc.c4f(1, 1, 1, 1))
+    
+    local renderTexture = cc.RenderTexture:create(textureSize.width,textureSize.height)
+    maskSprite:setPosition(cc.p(textureSize.width/2,textureSize.height/2))
+    textureSprite:setPosition(cc.p(textureSize.width/2,textureSize.height/2))
+  
+    maskSprite:setBlendFunc(cc.blendFunc(GL_ONE,GL_ZERO))
+    textureSprite:setBlendFunc(cc.blendFunc(GL_DST_ALPHA,GL_ZERO))
+
+    renderTexture:begin()
+    maskSprite:visit()
+    textureSprite:visit()
+    renderTexture:endToLua()
+ 
+    local retSprite = cc.Sprite:createWithTexture(renderTexture:getSprite():getTexture())
+    retSprite:setFlippedY(true)
+    return retSprite
+end
+
+function tool.createBorder(borderSize, borderWidth)
+  
+  local maskSprite = cc.DrawNode:create()
+  local points = {}
+  table.insert(points, cc.p(2, 2))
+  table.insert(points, cc.p(borderSize.width - 2, 2))
+  table.insert(points, cc.p(borderSize.width-2, borderSize.height-2))
+  table.insert(points, cc.p(2, borderSize.height-2))
+
+  maskSprite:drawPolygon(points, #points, cc.c4f(0, 0, 0, 0), borderWidth, cc.c4f(0, 0, 0, 1))
+
+  local renderTexture = cc.RenderTexture:create(borderSize.width,borderSize.height)
+  maskSprite:setPosition(cc.p(borderSize.width/2, borderSize.height/2))
+
+  maskSprite:setBlendFunc(cc.blendFunc(GL_ONE,GL_ZERO))
+
+  renderTexture:begin()
+  maskSprite:visit()
+  renderTexture:endToLua()
+
+  local retSprite = cc.Sprite:createWithTexture(renderTexture:getSprite():getTexture())
+  retSprite:setFlippedY(true)
+  return retSprite
+
+
+end
+
 
 return tool

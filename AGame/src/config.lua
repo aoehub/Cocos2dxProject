@@ -27,6 +27,3 @@ CC_DESIGN_RESOLUTION = {
         end
     end
 }
-
-
-require("tool.tool")

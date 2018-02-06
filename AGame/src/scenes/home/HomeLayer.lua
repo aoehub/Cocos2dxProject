@@ -11,7 +11,7 @@ function HomeLayer:ctor(  )
 end
 
 function HomeLayer:init()
-	local bg = cc.LayerColor:create(cc.c4b(239.0, 239.0, 244.0, 255),display.width,display.height)
+	local bg = cc.LayerColor:create(COLOR_BGCOLOR,display.width,display.height)
 	bg:setPosition(cc.p(0,0))
 	local scrollview = cc.ScrollView:create(cc.size(display.width, display.height),bg)
 	-- scrollview:setPosition(cc.p(0,0))
@@ -40,31 +40,35 @@ function HomeLayer:createTableView()
 		end
 		local height = 63*CC_SCREEN_RATIO
 		local gap = 5
-		local bg = cc.LayerColor:create(cc.c4b(255, 255, 255, 255),display.width,height)
+		local bg = cc.LayerColor:create(COLOR_WHITE,display.width,height)
 		bg:setPosition(cc.p(0,0))
+		bg:setTag(101)
 		cell:addChild(bg)
-
-		local icon = cc.Sprite:create("0.jpg",cc.size(45*CC_SCREEN_RATIO, 45*CC_SCREEN_RATIO))
-		tool.drawNodeRoundRect()
-		icon:setPosition(cc.p(height/2,height/2))
+		local icon = tool.maskedSprite("0.jpg", cc.size(45*CC_SCREEN_RATIO, 45*CC_SCREEN_RATIO), 9)
+		icon:setPosition(cc.p(63*CC_SCREEN_RATIO/2, 63*CC_SCREEN_RATIO/2))
 		bg:addChild(icon)
 
 		local name = cc.Label:createWithSystemFont("张三","",30)
-		name:setTextColor(cc.c4b(15.0, 17.0, 22.0, 255))
-		name:setPosition(cc.p(height + gap,height/2 + gap))
-		name:setAnchorPoint(cc.p(0,0))
+		name:setTextColor(COLOR_TITLECOLOR)
+		name:setPosition(cc.p(height + gap, height/2 + gap))
+		name:setAnchorPoint(cc.p(0, 0))
 		bg:addChild(name)
 
 		local content = cc.Label:createWithSystemFont("[动画表情]","",25)
-		content:setTextColor(cc.c4b(15.0, 17.0, 22.0, 255))
-		content:setPosition(cc.p(height + gap,height/2 - gap))
-		content:setAnchorPoint(cc.p(0,1))
+		content:setTextColor(COLOR_CONTENTTEXTCOLOR)
+		content:setPosition(cc.p(height + gap, height/2 - gap))
+		content:setAnchorPoint(cc.p(0, 1))
 		bg:addChild(content)
+
+		bg:addChild(tool.createBorder(cc.size(display.width, height), 1))
+		-- local line = cc.LayerColor:create(COLOR_TABBAR_LINE_COLOR,display.width,0.5)
+		-- line:setPosition(cc.p(0,0))
+		-- cell:addChild(line)
 		return cell
 	end
 
 	local function numberofCellsInTableView()
-		return 1
+		return 2
 	end
 
 	local tableview = cc.TableView:create(cc.size(display.width,display.height - 64*CC_SCREEN_RATIO))
