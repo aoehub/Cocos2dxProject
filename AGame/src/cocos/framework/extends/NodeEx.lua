@@ -75,7 +75,11 @@ function Node:move(x, y)
     return self
 end
 
-function Node:moveTo(args)
+function Node:moveTo(time, x, y)
+    local args = {}
+    args.time = time
+    args.x = x
+    args.y = y
     transition.moveTo(self, args)
     return self
 end

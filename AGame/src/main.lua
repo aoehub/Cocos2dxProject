@@ -21,10 +21,14 @@ local function main()
         cc.Director:getInstance():setDisplayStats(true)
     end
 
-	local mainscene = cc.Scene:create()
-	cc.Director:getInstance():replaceScene(mainscene)
-	local tabbar = require("tool.tabbar.TabBarController").new(mainscene)
-	local navbar = require("tool.navigationbar.NavigationBarController").new(mainscene)
+	-- local mainscene = cc.Scene:create()
+	-- cc.Director:getInstance():replaceScene(mainscene)
+	-- local tabbar = require("tool.tabbar.TabBarController").new(mainscene)
+	-- local navbar = require("tool.navigationbar.NavigationBarController").new(mainscene)
+
+	local scene = require("PenGod.PenGodScene").new()
+
+	cc.Director:getInstance():replaceScene(scene)
 
 end
 
